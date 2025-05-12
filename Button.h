@@ -66,6 +66,7 @@ public:
     void handleEvents(sf::Vector2i mouse_pos, sf::Event event);
 
     void tryStartDrag(const sf::Vector2i& mousePos, const sf::Event& event);
+    void cancelDrag();
     void endDrag(const sf::Vector2i& mousePos, const sf::Event& event, ItemSlot*source);
     void swapItems(ItemSlot* source, ItemSlot* target);
 

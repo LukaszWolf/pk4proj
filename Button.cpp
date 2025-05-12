@@ -181,6 +181,9 @@ ItemSlot::ItemSlot(sf::Vector2f position, sf::Vector2f size, ItemType item_type,
     else {
         shape.setTexture(&tex);
     }
+    hover.setSize(size);
+    hover.setPosition(position);
+    hover.setFillColor(sf::Color(255, 255, 255, 0)); // Domy�lnie przezroczysty
    // if (current_item != nullptr) {
      //   this->current_item->sprite.setTexture(current_item->texture);
        // this->current_item->sprite.setScale(0.5f, 0.5f);
@@ -194,7 +197,7 @@ void ItemSlot::setItem(Item* item)
     //nowy item to trzeba go ustawic w dobrym miejscu
   
     this->current_item = item;
-    if (item) {
+    if (this->current_item) {
         this->current_item->setPosition(this->getPosition());
         this->current_item->sprite.setTexture(current_item->texture);
         this->current_item->sprite.setScale(0.5f, 0.5f);
@@ -241,8 +244,8 @@ sf::FloatRect ItemSlot::getGlobalBounds() const
 
 void ItemSlot::draw(sf::RenderWindow& window)
 {
-    window.draw(shape);
-    
+  //  window.draw(shape);
+    window.draw(this->hover);
 
     if (this->current_item != nullptr) {
         //   if (current_item->isNewPosition()) {
@@ -253,11 +256,11 @@ void ItemSlot::draw(sf::RenderWindow& window)
       //  this->current_item->sprite.setTexture(current_item->texture);
         // }
         window.draw(this->current_item->sprite);
-        window.draw(hover);
+       
         //  this->current_item->sprite.setColor(sf::Color::Yellow);
 
     }
-    window.draw(hover);
+    
 }
 void ItemSlot::tryStartDrag(const sf::Vector2i& mousePos, const sf::Event& event) {
     if (event.type == sf::Event::MouseButtonPressed &&
@@ -275,7 +278,27 @@ void ItemSlot::tryStartDrag(const sf::Vector2i& mousePos, const sf::Event& event
     }
 }
 void ItemSlot::swapItems(ItemSlot*source, ItemSlot*target) {
-    std::cout << "ZAMIENIONO ITEMY";
+    std::cout << "ZAMIENIONO ITEMY\n";
+    // zapamiętujemy oryginalny przedmiot źródłowy
+    Item* temp = source->getCurrentItem();
+
+    // zamieniamy
+    source->setItem(target->getCurrentItem());
+    target->setItem(temp);
+
+    // i poprawiamy pozycje sprite'ów
+    if (source->getCurrentItem()) {
+        source->getCurrentItem()->setPosition(source->getPosition());
+    }
+    if (target->getCurrentItem()) {
+        target->getCurrentItem()->setPosition(target->getPosition());
+    }
+
+}
+
+void ItemSlot::cancelDrag() {
+    isItemDragged = false;
+    isDragSource = false;
 }
 void ItemSlot::endDrag(const sf::Vector2i& mousePos, const sf::Event& event, ItemSlot*source) {
 
@@ -290,9 +313,10 @@ void ItemSlot::endDrag(const sf::Vector2i& mousePos, const sf::Event& event, Ite
             std::cout << "Swapped items between slots" << std::endl;
             swapItems(source, this); //nie dziala
         }
-        else {
-            source->getCurrentItem()->setPosition(source->getPosition()); // item wraca na miejsce jesli nie trafil do zadnego slota
-        }
+       // else {
+         //   std::cout << "upuszczono nie na slocie" << std::endl;
+           // source->getCurrentItem()->setPosition(source->getPosition()); // item wraca na miejsce jesli nie trafil do zadnego slota
+        //}
         source->isItemDragged = false;
         source->isDragSource = false;
     }
@@ -301,9 +325,9 @@ void ItemSlot::endDrag(const sf::Vector2i& mousePos, const sf::Event& event, Ite
 void ItemSlot::handleEvents(sf::Vector2i mouse_pos, sf::Event event){
 //if (!isItemDragged) {
     // hover effect when not dragging
-    if (shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_pos))) {
+    if (this->isHovered(mouse_pos)) {
         hover.setFillColor(sf::Color(255, 255, 255, 40));
-        hover.setPosition(shape.getPosition());
+        hover.setPosition(this->shape.getPosition());
     }
     else {
         hover.setFillColor(sf::Color(255, 255, 255, 0));

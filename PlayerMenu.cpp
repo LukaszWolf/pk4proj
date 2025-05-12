@@ -7,7 +7,7 @@ PlayerMenu::PlayerMenu(Game& game) : Page(game) {
     this->loggedInUser = game_ref.getLoggedInPlayer();
     test_counter = 0;
     this->navBar = new NavBar(400, 1080, game);
-    this->player_managment_area = new ContentArea(1520, 1080, game, "player_managment_area.png", 400, 0);
+    this->player_managment_area = new ContentArea(1520, 1080, game, "player_menu_background.png", 400, 0);
 
     this->helmet_area = new ItemSlot({ 444,34 }, { 126,126 }, ItemType::HELMET, "test.png", []() {}, nullptr);
     this->armor_area = new ItemSlot({ 444,184 }, { 126,126 }, ItemType::ARMOR, "test.png", []() {}, nullptr);
@@ -19,7 +19,10 @@ PlayerMenu::PlayerMenu(Game& game) : Page(game) {
     this->belt_area = new ItemSlot({ 1008,184 }, { 126,126 }, ItemType::HELMET, "test.png", []() {}, nullptr);
     this->ring_area = new ItemSlot({ 1008,334 }, { 126,126 }, ItemType::HELMET, "test.png", []() {}, nullptr);
     this->lucky_item_area = new ItemSlot({ 1008,484 }, { 126,126 }, ItemType::HELMET, "test.png", []() {}, nullptr);
-    std::cout << test_counter << std::endl << std::endl;
+    
+
+    ////////dodac sloty z plecaka
+
     allSlots = {
     helmet_area,
     armor_area,
@@ -32,6 +35,8 @@ PlayerMenu::PlayerMenu(Game& game) : Page(game) {
     ring_area,
     lucky_item_area
     };
+
+    itemSwapped = false;
 }
 
 PlayerMenu::~PlayerMenu() {
@@ -59,8 +64,10 @@ void PlayerMenu::draw(sf::RenderWindow& window) {
     if (player_managment_area != nullptr) {
         player_managment_area->draw(window);
     }
-    if(shoes_area!=nullptr){
-    shoes_area->draw(window);
+    for (auto slot : allSlots) {
+        if (slot) {
+            slot->draw(window);
+        }
     }
 
 }
@@ -78,6 +85,11 @@ void PlayerMenu::draw(sf::RenderWindow& window) {
 
 
 void PlayerMenu::handleEvents(sf::Event event, sf::RenderWindow& window) {
+
+    ///zamiana itemow przez game ref najlepiej chyba albo plik tekstowy
+
+
+
     sf::Vector2i mousePixel = sf::Mouse::getPosition(window);
     sf::Vector2f mouseWorld = window.mapPixelToCoords(mousePixel);
 
@@ -98,17 +110,36 @@ void PlayerMenu::handleEvents(sf::Event event, sf::RenderWindow& window) {
             }
         }
     }
-
+    
     // 3) Try to end drag on mouse release
     if (event.type == sf::Event::MouseButtonReleased &&
         event.mouseButton.button == sf::Mouse::Left &&
         dragSource)
         //std::cout << "wykonal sie if";
-    {
-        for (auto target : allSlots) {
-            target->endDrag(mousePixel, event, dragSource);
+        {
 
+        itemSwapped = false;
+        for (auto target : allSlots) {
+            if(target->isHovered(mousePixel)){
+                itemSwapped = true;
+                target->endDrag(mousePixel, event, dragSource);
+                itemSwapped = true;
+                break;
+            }
         }
+        if (!itemSwapped) {
+        
+            std::cout << "upuszczono nie na slocie" << std::endl;
+            dragSource->getCurrentItem()->setPosition(dragSource->getPosition()); // item wraca na miejsce jesli nie trafil do zadnego sl
+            dragSource->getCurrentItem()->setPosition(dragSource->getPosition());
+            dragSource->cancelDrag();
+            
+        }
+        /*if (dragSource and !itemSwapped) {
+            dragSource->getCurrentItem()->setPosition(dragSource->getPosition());
+            dragSource = nullptr;
+            dragSource->setIsItemDragged(false);
+        }*/
         dragSource = nullptr;
     }
 

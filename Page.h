@@ -106,6 +106,7 @@ private:
    
     std::vector<ItemSlot*> allSlots;
     ItemSlot* dragSource = nullptr;
+    bool itemSwapped;
 
    // void tryStartDrag(const sf::Vector2i& mousePos, const sf::Event& event);
     //void tryEndDrag(const sf::Vector2i& mousePos, const sf::Event& event);
