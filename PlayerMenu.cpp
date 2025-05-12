@@ -103,9 +103,11 @@ void PlayerMenu::handleEvents(sf::Event event, sf::RenderWindow& window) {
     if (event.type == sf::Event::MouseButtonReleased &&
         event.mouseButton.button == sf::Mouse::Left &&
         dragSource)
+        //std::cout << "wykonal sie if";
     {
         for (auto target : allSlots) {
-            target->tryEndDrag(mousePixel, event, dragSource);
+            target->endDrag(mousePixel, event, dragSource);
+
         }
         dragSource = nullptr;
     }
