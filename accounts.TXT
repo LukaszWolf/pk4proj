@@ -1,0 +1,5 @@
+login: player1 pass: haslo image: test.png strenght: 100 dexterity: 30 intelligence: 20 constitution: 80 luck: 40 char_class: 1 level: 11 mount: 0 thirst: 88 gold: 1203 mushrooms: 87 hourglasses: 70    
++
+login: player2 pass: haslo2 image: test2.png strenght: 100 dexterity: 30 intelligence: 20 constitution: 80 luck: 40 char_class: 1 level: 11 mount: 0 thirst: 88 gold: 1203 mushrooms: 87 hourglasses: 70    
++
+login:jebacdrabika pass:drabik

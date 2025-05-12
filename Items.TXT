@@ -1,0 +1,13 @@
+id: 120 img: test2.png name: helmet strenght: 10 dexterity: 20 intelligence: 90 constitution: 87 luck: 21
+id: 217 img: test2.png name: shield strenght: 10 dexterity: 20 intelligence: 90 constitution: 87 luck: 21
+id: 328	img: test2.png name: trousers strenght: 10 dexterity: 20 intelligence: 90 constitution: 87 luck: 21
+id: 401	img: customksztalt.png name: shoes strenght: 10 dexterity: 20 intelligence: 90 constitution: 87 luck: 21
+id: 513	img: test2.png name: weapon strenght: 10 dexterity: 20 intelligence: 90 constitution: 87 luck: 21
+id: 629	img: test2.png name: necklace strenght: 10 dexterity: 20 intelligence: 90 constitution: 87 luck: 21
+id: 729	img: test2.png name: belt strenght: 10 dexterity: 20 intelligence: 90 constitution: 87 luck: 21
+id: 812	img: test2.png name: ring strenght: 10 dexterity: 20 intelligence: 90 constitution: 87 luck: 21
+id: 100	img: test2.png name: slot1 strenght: 10 dexterity: 20 intelligence: 90 constitution: 87 luck: 21
+id: 200	img: test2.png name: slot3 strenght: 10 dexterity: 20 intelligence: 90 constitution: 87 luck: 21
+id: 600	img: test2.png name: slot5 strenght: 10 dexterity: 20 intelligence: 90 constitution: 87 luck: 21
+id: 700	img: test2.png name: slot6 strenght: 10 dexterity: 20 intelligence: 90 constitution: 87 luck: 21
+id: 900	img: test2.png name: slot8 strenght: 10 dexterity: 20 intelligence: 90 constitution: 87 luck: 2000

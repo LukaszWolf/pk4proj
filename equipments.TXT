@@ -1,0 +1,1 @@
+login: player1 helmet: 120 shield: 217 trousers: 328 shoes: 401 weapon: 513 necklace: 629 belt: 729 ring: 812 luckyitem: 000 slot1: 100 slot2: 0 slot3: 200 slot4: 000 slot5: 600 slot6: 700 slot7: 000 slot8: 900
