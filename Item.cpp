@@ -86,7 +86,42 @@ sf::FloatRect Item::getGlobalBounds() const {
     return sprite.getGlobalBounds();
 }
 
-int Item::getId()
+
+int Item::getId() const
 {
     return this->id;
 }
+
+//
+//sf::Texture Item::getTexture() const
+//{
+//    return texture;
+//}
+//int Item::getStrenght() const
+//{
+//    return strength;
+//}
+//int Item::getDexterity() const
+//{
+//    return dexterity;
+//}
+//int Item::getIntelligence() const
+//{
+//    return intelligence;
+//}
+//int Item::getConstitution() const
+//{
+//    return constitution;
+//}
+//int Item::getLuck() const
+//{
+//    return luck;
+//}
+//std::string Item::getName() const
+//{
+//    return name;
+//}
+//sf::Sprite Item::getSprite() const
+//{
+//    return sprite;
+//}

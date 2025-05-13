@@ -20,7 +20,7 @@ protected:
     sf::RectangleShape hover;
     sf::Texture tex;
     sf::Color hoverColor;
-    bool visibility;
+    //bool visibility;
     std::function<void()> onClickFunction;  // Funkcja lambda przechowywana w obiekcie
 public:
     Button();

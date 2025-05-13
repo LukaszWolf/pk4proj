@@ -4,13 +4,15 @@
 //TODO
 // 
 // 
-// hover z itemslot sie nie wyswietla
+//w setItem w playermenu trzeba setowac item do ekwipunku gracza rowniez, wgl spoko by bylo to zsynchronizowac z playermenu
+// Czyli zmieniac item w ekwipunku ustawiajac flage ze zmiana ekwipunku i jesli zmiana ekwipunku to w handle events wczytywac 
+// ten ekwipunek 
 // 
 // 
-// itemy sie nie setuj¹ poniewaz handle events to robilo a zakomentowalem chyba
 // 
 // 
-// playermenu handle events jest spierdolone jak zwykle
+// 
+//
 //
 //
 // Ogarnac wycieki player przy tworzeniu kafelkow i przy usuwaniu player a tak na prawde wylogowywaniu (trzeba usunac itemy i ustawic w mapie equipment nullptr )

@@ -15,72 +15,50 @@ Player::~Player() {}
 
 // Implementacje metod wirtualnych
 void Player::attack() {
-    std::cout << name << " attacks for " << calculateDamage() << " damage!\n";
-    if (rand() % 100 < calculateCritChance() * 100) {
-        std::cout << "Critical hit!\n";
-    }
+  
 }
 
 int Player::calculateHP() {
-    return (constitution * 5) + (level * 10);
+	return 1;
 }
 
 int Player::calculateDamage() {
-    int base = strength;
-    if (ch_class == CharacterClass::WARRIOR) base *= 1.5;
-    else if (ch_class == CharacterClass::MAGE) base += intelligence;
-    return base + (dexterity / 2);
+	return 1;
 }
 
 int Player::calculateEvasion() {
-    return dexterity / 3 + (mount == Mount::HORSE ? 5 : 0);
+	return 1;
 }
 
 int Player::calculateResistance() {
-    return intelligence / 2 + armor / 4;
+	return 1;
 }
 
 int Player::calculateDamageReduction() {
-    return armor / 5 + (mount == Mount::DRAGON ? 3 : 0);
+	return 1;
 }
 
 double Player::calculateCritChance() {
-    return luck / 100.0 + (mount == Mount::TIGER ? 0.05 : 0);
+	return 1;
 }
 
 // Implementacje metod specyficznych dla Player
 void Player::calculateXPtoNextLvl() {
-    // Przyk³adowa formu³a doœwiadczenia
-    int xp_needed = level * level * 100;
-    std::cout << "XP needed for next level: " << xp_needed << "\n";
+    
 }
 
 void Player::levelUp() {
-    level++;
-    strength += (ch_class == CharacterClass::WARRIOR) ? 2 : 1;
-    dexterity += (ch_class == CharacterClass::SCOUT) ? 2 : 1;
-    intelligence += (ch_class == CharacterClass::MAGE) ? 2 : 1;
-    constitution += 1;
-    luck += 1;
-    updateStats();
+
 }
 
 void Player::upgradeStat() {
-    // Tutaj mo¿na dodaæ logikê ulepszania statystyk
-    // np. za punkty umiejêtnoœci
-    strength++;
-    updateStats();
+
 }
 
 
 
 void Player::updateStats() {
-    hp = calculateHP();
-    damage = calculateDamage();
-    evasion = calculateEvasion();
-    resistance = calculateResistance();
-    damage_reduction = calculateDamageReduction();
-    crit_chance = calculateCritChance();
+
 }
 
 void Player::initEquipment()
@@ -127,23 +105,24 @@ void Player::setItem(const std::string& slot_name, Item* item) {
 	this->game_ref.setItemChangedFlag(true);
 }
 void Player::printEquipment() {
-    std::cout << "Ekwipunek gracza:\n";
-    for (const  auto &pair : equipment) {
-        if (pair.second) {
-            std::cout << pair.first << " -> Przedmiot ID: "
-                << "id:" << pair.second->getId()
-                //<<"texture: "<<this->match[1]
-                << "name:" << pair.second->name
-                << "strenght:" << pair.second->strength
-                << "dext:" << pair.second->dexterity
-                << "inte:" << pair.second->intelligence
-                << "constit:" << pair.second->constitution
-                << "luck:" << pair.second->luck << std::endl;
-        }
-        else {
-            std::cout << pair.first << " -> brak\n";
-        }
-    }
+    //std::cout << "Ekwipunek gracza:\n";
+    //for (const  auto &pair : equipment) {
+    //    if (pair.second) {
+    //        std::cout << pair.first << " -> Przedmiot ID: "
+				//
+    //            //<< "id:" << pair.second->getId()
+    //            ////<<"texture: "<<this->match[1]
+    //            //<< "name:" << pair.second->getName()
+    //            //<< "strenght:" << pair.second->getStrenght()
+    //            //<< "dext:" << pair.second->getDexterity()
+    //            //<< "inte:" << pair.second->getIntelligence()
+    //            //<< "constit:" << pair.second->getConstitution()
+    //            //<< "luck:" << pair.second->getLuck() << std::endl;
+    //   // }
+    //    //else {
+    //     //   std::cout << pair.first << " -> brak\n";
+    //    }
+    //}
 }
 
 

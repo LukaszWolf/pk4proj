@@ -9,31 +9,57 @@ PlayerMenu::PlayerMenu(Game& game) : Page(game) {
     this->navBar = new NavBar(400, 1080, game);
     this->player_managment_area = new ContentArea(1520, 1080, game, "player_menu_background.png", 400, 0);
 
-    this->helmet_area = new ItemSlot({ 444,34 }, { 126,126 }, ItemType::HELMET, "test.png", []() {}, nullptr);
-    this->armor_area = new ItemSlot({ 444,184 }, { 126,126 }, ItemType::ARMOR, "test.png", []() {}, nullptr);
-    this->gloves_area = new ItemSlot({ 444,334 }, { 126,126 }, ItemType::HELMET, "test.png", []() {}, nullptr);
-    this->shoes_area = new ItemSlot({ 444,484 }, { 126,126 }, ItemType::BOOTS, "test.png", []() {}, nullptr);
-    this->weapon_area = new ItemSlot({ 650,484 }, { 126,126 }, ItemType::HELMET, "test.png", []() {}, nullptr);
-    this->weapon_effect_area = new ItemSlot({ 802,484 }, { 126,126 }, ItemType::HELMET, "test.png", []() {}, nullptr);
-    this->necklace_area = new ItemSlot({ 1008,34 }, { 126,126 }, ItemType::HELMET, "test.png", []() {}, nullptr);
-    this->belt_area = new ItemSlot({ 1008,184 }, { 126,126 }, ItemType::HELMET, "test.png", []() {}, nullptr);
-    this->ring_area = new ItemSlot({ 1008,334 }, { 126,126 }, ItemType::HELMET, "test.png", []() {}, nullptr);
-    this->lucky_item_area = new ItemSlot({ 1008,484 }, { 126,126 }, ItemType::HELMET, "test.png", []() {}, nullptr);
+    this->helmet_slot = new ItemSlot({ 439,34 }, { 129,129 }, ItemType::HELMET, "test.png", []() {}, nullptr);
+    this->armor_slot = new ItemSlot({ 439,184 }, { 129,129 }, ItemType::ARMOR, "test.png", []() {}, nullptr);
+    this->gloves_slot = new ItemSlot({ 439,335 }, { 129,129 }, ItemType::GLOVES, "test.png", []() {}, nullptr);
+    this->shoes_slot = new ItemSlot({ 439,486 }, { 129,129 }, ItemType::SHOES, "test.png", []() {}, nullptr);
+    this->weapon_slot = new ItemSlot({ 721,487 }, { 129,129 }, ItemType::WEAPON, "test.png", []() {}, nullptr);
+  //  this->weapon_effect_area = new ItemSlot({ 802,484 }, { 126,126 }, ItemType::HELMET, "test.png", []() {}, nullptr);
+    this->necklace_slot = new ItemSlot({ 1004,34 }, { 129,129 }, ItemType::NECKLACE, "test.png", []() {}, nullptr);
+    this->belt_slot = new ItemSlot({ 1004,185 }, { 129,129 }, ItemType::BELT, "test.png", []() {}, nullptr);
+    this->ring_slot = new ItemSlot({ 1004,336 }, { 129,129 }, ItemType::RING, "test.png", []() {}, nullptr);
+    this->lucky_item_slot = new ItemSlot({ 1004,487 }, { 129,129 }, ItemType::LUCKY_ITEM, "test.png", []() {}, nullptr);
+
+    this->bag_slot1 = new ItemSlot({ 1251,34 }, { 129,129 }, ItemType::ANY, "test.png", []() {}, nullptr);
+    this->bag_slot2 = new ItemSlot({ 1400,34 }, { 129,129 }, ItemType::ANY, "test.png", []() {}, nullptr);
+    this->bag_slot3 = new ItemSlot({ 1545,34 }, { 129,129 }, ItemType::ANY, "test.png", []() {}, nullptr);
+    this->bag_slot4 = new ItemSlot({ 1693,34 }, { 129,129 }, ItemType::ANY, "test.png", []() {}, nullptr);
+    this->bag_slot5= new ItemSlot({ 1251,177 }, { 129,129 }, ItemType::ANY, "test.png", []() {}, nullptr);
+    this->bag_slot6 = new ItemSlot({ 1400,177 }, { 129,129 }, ItemType::ANY, "test.png", []() {}, nullptr);
+    this->bag_slot7 = new ItemSlot({ 1545,177 }, { 129,129 }, ItemType::ANY, "test.png", []() {}, nullptr);
+    this->bag_slot8 = new ItemSlot({ 1693,177 }, { 129,129 }, ItemType::ANY, "test.png", []() {}, nullptr);
+
+    this->upgrade_strenght_btn = new Button({ 720, 681 }, { 0, 0 }, "upgrade_stat_button.png", []() {});
+    this->upgrade_dexterity_btn = new Button({ 720, 774 }, { 0, 0 }, "upgrade_stat_button.png", []() {});
+    this->upgrade_intelligence_btn = new Button({ 720, 867 }, { 0, 0 }, "upgrade_stat_button.png", []() {});
+    this->upgrade_constitution_btn = new Button({ 1042, 681 }, { 0, 0 }, "upgrade_stat_button.png", []() {});
+    this->upgrade_luck_btn = new Button({ 1042, 774 }, { 0, 0 }, "upgrade_stat_button.png", []() {});
+
+
+    
+
     
 
     ////////dodac sloty z plecaka
 
     allSlots = {
-    helmet_area,
-    armor_area,
-    gloves_area,
-    shoes_area,
-    weapon_area,
-    weapon_effect_area,
-    necklace_area,
-    belt_area,
-    ring_area,
-    lucky_item_area
+    helmet_slot,
+    armor_slot,
+    gloves_slot,
+    shoes_slot,
+    weapon_slot,
+    necklace_slot,
+    belt_slot,
+    ring_slot,
+    lucky_item_slot,
+    bag_slot1,
+    bag_slot2,
+    bag_slot3,
+    bag_slot4,
+    bag_slot5,
+    bag_slot6,
+    bag_slot7,
+    bag_slot8
     };
 
     itemSwapped = false;
@@ -44,16 +70,31 @@ PlayerMenu::~PlayerMenu() {
     delete this->player_managment_area;
     delete this->player_image;
 
-    delete this->helmet_area;
-    delete this->armor_area;
-    delete this->gloves_area;
-    delete this->shoes_area;
-    delete this->weapon_area;
-    delete this->weapon_effect_area;
-    delete this->necklace_area;
-    delete this->belt_area;
-    delete this->ring_area;
-    delete this->lucky_item_area;
+    delete this->helmet_slot;
+    delete this->armor_slot;
+    delete this->gloves_slot;
+    delete this->shoes_slot;
+    delete this->weapon_slot;
+    delete this->necklace_slot;
+    delete this->belt_slot;
+    delete this->ring_slot;
+    delete this->lucky_item_slot;
+
+    delete this->bag_slot1;
+    delete this->bag_slot2;
+    delete this->bag_slot3;
+    delete this->bag_slot4;
+    delete this->bag_slot5;
+    delete this->bag_slot6;
+    delete this->bag_slot7;
+    delete this->bag_slot8;
+
+
+    delete this->upgrade_strenght_btn;
+    delete this->upgrade_dexterity_btn;
+    delete this->upgrade_intelligence_btn;
+    delete this->upgrade_constitution_btn;
+    delete this->upgrade_luck_btn;
 }
 
 void PlayerMenu::draw(sf::RenderWindow& window) {
@@ -70,16 +111,23 @@ void PlayerMenu::draw(sf::RenderWindow& window) {
         }
     }
 
+    if (upgrade_strenght_btn) {
+        upgrade_strenght_btn->draw(window);
+    }
+    if (upgrade_dexterity_btn) {
+        upgrade_dexterity_btn->draw(window);
+    }
+    if (upgrade_intelligence_btn) {
+        upgrade_intelligence_btn->draw(window);
+    }
+    if (upgrade_constitution_btn) {
+        upgrade_constitution_btn->draw(window);
+    }
+    if (upgrade_luck_btn) {
+        upgrade_luck_btn->draw(window);
+    }
+
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -120,7 +168,8 @@ void PlayerMenu::handleEvents(sf::Event event, sf::RenderWindow& window) {
 
         itemSwapped = false;
         for (auto target : allSlots) {
-            if(target->isHovered(mousePixel)){
+            if(target->isHovered(mousePixel))
+            {
                 itemSwapped = true;
                 target->endDrag(mousePixel, event, dragSource);
                 itemSwapped = true;
@@ -133,7 +182,7 @@ void PlayerMenu::handleEvents(sf::Event event, sf::RenderWindow& window) {
             dragSource->getCurrentItem()->setPosition(dragSource->getPosition()); // item wraca na miejsce jesli nie trafil do zadnego sl
             dragSource->getCurrentItem()->setPosition(dragSource->getPosition());
             dragSource->cancelDrag();
-            
+            //moze sie pojawic informacja ze upuszczono w nieprawidlowym miejscu
         }
         /*if (dragSource and !itemSwapped) {
             dragSource->getCurrentItem()->setPosition(dragSource->getPosition());
@@ -148,10 +197,29 @@ void PlayerMenu::handleEvents(sf::Event event, sf::RenderWindow& window) {
         slot->handleEvents(mousePixel, event);
     }
 
+
+    if (upgrade_strenght_btn) {
+        upgrade_strenght_btn->handleEvents(mousePixel,event);
+    }
+    if (upgrade_dexterity_btn) {
+        upgrade_dexterity_btn->handleEvents(mousePixel, event);
+    }
+    if (upgrade_intelligence_btn) {
+        upgrade_intelligence_btn->handleEvents(mousePixel, event);
+    }
+    if (upgrade_constitution_btn) {
+        upgrade_constitution_btn->handleEvents(mousePixel, event);
+    }
+    if (upgrade_luck_btn) {
+        upgrade_luck_btn->handleEvents(mousePixel, event);
+    }
+
+
+
     // 5) Sync with player data if needed
     if (loggedInUser && game_ref.getItemChangedFlag()) {
         if (auto it = loggedInUser->getItem("shoes")) {
-            shoes_area->setItem(it);
+            shoes_slot->setItem(it);
         }
         game_ref.setItemChangedFlag(false);
     }

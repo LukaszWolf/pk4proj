@@ -7,12 +7,6 @@ Button::Button() {};
 Button::Button(sf::Vector2f position, sf::Vector2f size, std::string texture_file_name_default, std::function<void()>action)
     :onClickFunction(action)
 {
-    // TEKSTURA
-    shape.setSize(size);
-    shape.setPosition(position);
-    // shape.setFillColor(defaultColor); // Kolor awaryjny, gdyby tekstura si� nie za�adowa�a
-    shape.setFillColor(sf::Color::White); // Ustawienie jednolitego t�a, aby unikn�� przenikania
-    // �adowanie tekstury
     if (!tex.loadFromFile(texture_file_name_default) and texture_file_name_default != "") {
         std::cerr << "Nie mo�na za�adowa� tekstury: " << texture_file_name_default << std::endl;
     }
@@ -22,6 +16,18 @@ Button::Button(sf::Vector2f position, sf::Vector2f size, std::string texture_fil
     else {
         shape.setTexture(&tex);
     }
+
+    if (size.x == 0.f and size.y == 0.f) {
+        sf::Vector2f ts = static_cast<sf::Vector2f>(tex.getSize());
+        size = ts;
+    }
+    // TEKSTURA
+    shape.setSize(size);
+    shape.setPosition(position);
+    // shape.setFillColor(defaultColor); // Kolor awaryjny, gdyby tekstura si� nie za�adowa�a
+    shape.setFillColor(sf::Color::White); // Ustawienie jednolitego t�a, aby unikn�� przenikania
+    // �adowanie tekstury
+    
 
     /////HOVER
     hover.setSize(size);
@@ -32,12 +38,12 @@ Button::Button(sf::Vector2f position, sf::Vector2f size, std::string texture_fil
 
 Button::Button(const std::string& label, sf::Vector2f position, sf::Vector2f size, std::string texture_file_name_default)
 {
+    
+    
+    
     // TEKSTURA
-    shape.setSize(size);
-    shape.setPosition(position);
-    // shape.setFillColor(defaultColor); // Kolor awaryjny, gdyby tekstura si� nie za�adowa�a
-    shape.setFillColor(sf::Color::White); // Ustawienie jednolitego t�a, aby unikn�� przenikania
-    // �adowanie tekstury
+    
+    
     if (!tex.loadFromFile(texture_file_name_default) and texture_file_name_default != "") {
         std::cerr << "Nie mo�na za�adowa� tekstury: " << texture_file_name_default << std::endl;
     }
@@ -47,6 +53,16 @@ Button::Button(const std::string& label, sf::Vector2f position, sf::Vector2f siz
     else {
         shape.setTexture(&tex);
     }
+    if (size.x == 0.f and size.y == 0.f) {
+        sf::Vector2f ts = static_cast<sf::Vector2f>(tex.getSize());
+        size = ts;
+    }
+    shape.setSize(size);
+    shape.setPosition(position);
+    // shape.setFillColor(defaultColor); // Kolor awaryjny, gdyby tekstura si� nie za�adowa�a
+    shape.setFillColor(sf::Color::White); // Ustawienie jednolitego t�a, aby unikn�� przenikania
+    // �adowanie tekstury
+    
     //setText(label);
     /////HOVER
     hover.setSize(size);
@@ -201,6 +217,8 @@ void ItemSlot::setItem(Item* item)
         this->current_item->setPosition(this->getPosition());
         this->current_item->sprite.setTexture(current_item->texture);
         this->current_item->sprite.setScale(0.5f, 0.5f);
+
+        //trzeba dodac zeby w equipment w game albo w player sie zmienialo , lepiej w player
     }
    
     
@@ -245,6 +263,7 @@ sf::FloatRect ItemSlot::getGlobalBounds() const
 void ItemSlot::draw(sf::RenderWindow& window)
 {
   //  window.draw(shape);
+    
     window.draw(this->hover);
 
     if (this->current_item != nullptr) {
@@ -255,6 +274,7 @@ void ItemSlot::draw(sf::RenderWindow& window)
 
       //  this->current_item->sprite.setTexture(current_item->texture);
         // }
+
         window.draw(this->current_item->sprite);
        
         //  this->current_item->sprite.setColor(sf::Color::Yellow);

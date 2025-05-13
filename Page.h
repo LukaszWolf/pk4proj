@@ -91,27 +91,37 @@ private:
     NavBar* navBar;
     ContentArea* player_managment_area;
 
-    sf::Image* player_image = nullptr;
-    ItemSlot* helmet_area;
-    ItemSlot* armor_area;
-    ItemSlot* gloves_area;
-    ItemSlot* shoes_area;
-    ItemSlot* weapon_area;
-    ItemSlot* weapon_effect_area;
-    ItemSlot* necklace_area;
-    ItemSlot* belt_area;
-    ItemSlot* ring_area;
-    ItemSlot* lucky_item_area;
+    //itemy
 
+    sf::Image* player_image = nullptr;
+    ItemSlot* helmet_slot;
+    ItemSlot* armor_slot;
+    ItemSlot* gloves_slot;
+    ItemSlot* shoes_slot;
+    ItemSlot* weapon_slot;
+    ItemSlot* necklace_slot;
+    ItemSlot* belt_slot;
+    ItemSlot* ring_slot;
+    ItemSlot* lucky_item_slot;
+    ItemSlot* bag_slot1;
+    ItemSlot* bag_slot2;
+    ItemSlot* bag_slot3;
+    ItemSlot* bag_slot4;
+    ItemSlot* bag_slot5;
+    ItemSlot* bag_slot6;
+    ItemSlot* bag_slot7;
+    ItemSlot* bag_slot8;
    
     std::vector<ItemSlot*> allSlots;
     ItemSlot* dragSource = nullptr;
     bool itemSwapped;
 
-   // void tryStartDrag(const sf::Vector2i& mousePos, const sf::Event& event);
-    //void tryEndDrag(const sf::Vector2i& mousePos, const sf::Event& event);
-   // bool item_changed_flag;
-
+//statystyki
+    Button* upgrade_strenght_btn;
+    Button* upgrade_dexterity_btn;
+    Button* upgrade_intelligence_btn;
+    Button* upgrade_constitution_btn;
+    Button* upgrade_luck_btn;
 public:
     PlayerMenu(Game& game);
     ~PlayerMenu();
