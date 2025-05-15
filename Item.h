@@ -22,8 +22,6 @@ enum class ItemType {
 class Item {
 private:
     int id;
-    
-public:
     ItemType type;
     std::string name;
     std::string description;
@@ -34,6 +32,8 @@ public:
     int intelligence;
     int constitution;
     int luck;
+public:
+
     // Statystyki
 
     Item(int item_id);
@@ -43,14 +43,14 @@ public:
     void setPosition(sf::Vector2f pos);
     sf::FloatRect getGlobalBounds() const;
     int getId() const;
-    //ItemType getType() const;
-    //sf::Sprite getSprite() const;
-    //sf::Texture getTexture() const;
-   // int getStrenght()const;
-    //int getDexterity() const;
-    //int getIntelligence() const;
-    //int getConstitution() const;
-    //int getLuck() const;
-    //std::string getName()const;
+    ItemType getType() const;
+    sf::Sprite& getSprite() ;
+    sf::Texture& getTexture() ;
+    int getStrenght()const;
+    int getDexterity() const;
+    int getIntelligence() const;
+    int getConstitution() const;
+    int getLuck() const;
+    std::string getName()const;
 };
 #endif

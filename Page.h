@@ -128,6 +128,7 @@ public:
 
     void draw(sf::RenderWindow& window) override;
     void handleEvents(sf::Event event, sf::RenderWindow& window) override;
+    void updateSlots();
     void setLoggedInUser(Player* player);
 };
 

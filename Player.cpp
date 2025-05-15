@@ -154,7 +154,7 @@ void Player::updateEquipment(std::string filename)
 			//std::cout << match[1] << ",,,,,," << game_ref.getLoggedInPlayer()->getName() << std::endl;
 			std::cout << match[1] << ",,,,,," << this->getName() << std::endl;
 			//if (std::string( match[1]) == std::string(game_ref.getLoggedInPlayer()->getImgName())) { //czemu to nie dzialaXD
-			if (std::string(match[1]) == "player1") {
+			if ((std::string(match[1]) == this->getName())) {
 				found = true;
 				//std::cout << "MATCH DZIALAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" << std::endl;
 				Item* helmet = (std::stoi(match[2]) != 0) ? new Item(std::stoi(match[2])) : nullptr;

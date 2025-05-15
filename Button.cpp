@@ -215,8 +215,8 @@ void ItemSlot::setItem(Item* item)
     this->current_item = item;
     if (this->current_item) {
         this->current_item->setPosition(this->getPosition());
-        this->current_item->sprite.setTexture(current_item->texture);
-        this->current_item->sprite.setScale(0.5f, 0.5f);
+        this->current_item->getSprite().setTexture(current_item->getTexture());
+        this->current_item->getSprite().setScale(0.5f, 0.5f);
 
         //trzeba dodac zeby w equipment w game albo w player sie zmienialo , lepiej w player
     }
@@ -226,6 +226,11 @@ void ItemSlot::setItem(Item* item)
     //std::cout<<"NOWY itemek dadadadadd" << this->current_item->getGlobalBounds().getPosition().x;
     //dodac sprawdzanie czy pasuje typ itemu
 
+}
+
+ItemType ItemSlot::getAllowedItemType()
+{
+    return allowed_item_type;
 }
 
 Item* ItemSlot::getCurrentItem()
@@ -250,7 +255,7 @@ void ItemSlot::moveItem(sf::Vector2f& diff)
 {
     // jeżeli jest jakiś item i wciśnięty jest lewy przycisk myszy
     if (current_item) {
-        current_item->sprite.move(diff);
+        current_item->getSprite().move(diff);
       //  std::cout << "Moved item by x:" << diff.x << " y:" << diff.y << std::endl;
     }
 }
@@ -275,7 +280,7 @@ void ItemSlot::draw(sf::RenderWindow& window)
       //  this->current_item->sprite.setTexture(current_item->texture);
         // }
 
-        window.draw(this->current_item->sprite);
+        window.draw(this->current_item->getSprite());
        
         //  this->current_item->sprite.setColor(sf::Color::Yellow);
 
@@ -320,26 +325,39 @@ void ItemSlot::cancelDrag() {
     isItemDragged = false;
     isDragSource = false;
 }
-void ItemSlot::endDrag(const sf::Vector2i& mousePos, const sf::Event& event, ItemSlot*source) {
+bool ItemSlot::endDrag(const sf::Vector2i& mousePos, const sf::Event& event, ItemSlot*source) {
 
     if (event.type == sf::Event::MouseButtonReleased &&
         event.mouseButton.button == sf::Mouse::Left &&
         source && source->isDragSource && source->isItemDragged)
     {
-        if (this->isHovered(mousePos)) {
-           // Item* temp = current_item;
-            //setItem(source->getCurrentItem());
-            //source->setItem(temp);
-            std::cout << "Swapped items between slots" << std::endl;
-            swapItems(source, this); //nie dziala
+        if (this->isHovered(mousePos)){
+            auto itemType = source->getCurrentItem()->getType();
+            auto slotType = this->allowed_item_type;
+            std::cout
+                << "Próbuję upuścić item typu " << static_cast<int>(itemType)
+                << " na slot typu " << static_cast<int>(slotType) << "\n";
+
+            if ((this->allowed_item_type == source->getCurrentItem()->getType()) or this->allowed_item_type == ItemType::ANY) { //sprawdzenie czy slot docelowy i item przenoszony maja te same typy itemów 
+
+                // Item* temp = current_item;
+                 //setItem(source->getCurrentItem());
+                 //source->setItem(temp);
+                std::cout << "Swapped items between slots" << std::endl;
+                swapItems(source, this);
+                //        cancelDrag();
+                return true;
+            }
         }
+        
        // else {
          //   std::cout << "upuszczono nie na slocie" << std::endl;
            // source->getCurrentItem()->setPosition(source->getPosition()); // item wraca na miejsce jesli nie trafil do zadnego slota
         //}
-        source->isItemDragged = false;
-        source->isDragSource = false;
+        //source->isItemDragged = false;
+        //source->isDragSource = false;
     }
+    return false;
 }
 
 void ItemSlot::handleEvents(sf::Vector2i mouse_pos, sf::Event event){

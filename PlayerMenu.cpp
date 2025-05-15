@@ -61,7 +61,7 @@ PlayerMenu::PlayerMenu(Game& game) : Page(game) {
     bag_slot7,
     bag_slot8
     };
-
+    updateSlots();
     itemSwapped = false;
 }
 
@@ -170,9 +170,9 @@ void PlayerMenu::handleEvents(sf::Event event, sf::RenderWindow& window) {
         for (auto target : allSlots) {
             if(target->isHovered(mousePixel))
             {
-                itemSwapped = true;
-                target->endDrag(mousePixel, event, dragSource);
-                itemSwapped = true;
+                
+                itemSwapped = target->endDrag(mousePixel, event, dragSource);
+                dragSource->cancelDrag();
                 break;
             }
         }
@@ -218,14 +218,45 @@ void PlayerMenu::handleEvents(sf::Event event, sf::RenderWindow& window) {
 
     // 5) Sync with player data if needed
     if (loggedInUser && game_ref.getItemChangedFlag()) {
-        if (auto it = loggedInUser->getItem("shoes")) {
-            shoes_slot->setItem(it);
-        }
+        //if (auto it = loggedInUser->getItem("shoes")) {
+          //  shoes_slot->setItem(it);
+        //}
+        updateSlots();
         game_ref.setItemChangedFlag(false);
     }
 
 }
+void PlayerMenu::updateSlots() {
+    if (loggedInUser) {
+        // synchronizujemy każdy ItemSlot z przedmiotem w ekwipunku gracza
+        helmet_slot->setItem(loggedInUser->getItem("helmet"));
+        armor_slot->setItem(loggedInUser->getItem("shield"));
+        gloves_slot->setItem(loggedInUser->getItem("trousers"));
+        shoes_slot->setItem(loggedInUser->getItem("shoes"));
+        weapon_slot->setItem(loggedInUser->getItem("weapon"));
+        necklace_slot->setItem(loggedInUser->getItem("necklace"));
+        belt_slot->setItem(loggedInUser->getItem("belt"));
+        ring_slot->setItem(loggedInUser->getItem("ring"));
+        lucky_item_slot->setItem(loggedInUser->getItem("luckyitem"));
 
+        // sloty na przedmioty w plecaku
+        bag_slot1->setItem(loggedInUser->getItem("1"));
+        bag_slot2->setItem(loggedInUser->getItem("2"));
+        bag_slot3->setItem(loggedInUser->getItem("3"));
+        bag_slot4->setItem(loggedInUser->getItem("4"));
+        bag_slot5->setItem(loggedInUser->getItem("5"));
+        bag_slot6->setItem(loggedInUser->getItem("6"));
+        bag_slot7->setItem(loggedInUser->getItem("7"));
+        bag_slot8->setItem(loggedInUser->getItem("8"));
+    }
+    else {
+        // jeżeli nie ma zalogowanego gracza, czyścimy wszystkie sloty
+        for (auto slot : allSlots) {
+            slot->setItem(nullptr);
+        }
+    }
+}
 void PlayerMenu::setLoggedInUser(Player* player) {
     this->loggedInUser = player;
+    updateSlots();
 }
